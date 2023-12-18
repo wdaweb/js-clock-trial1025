@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>clock-22</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/starback@2.1.1/dist/starback.global.js"></script>
     <style>
         body {
             margin: 0;
@@ -95,20 +96,21 @@
         }
 
         #line{
-            background-color: #ffffff;
-            height: 20px;
-            width: 5px;
+            width: 100%;
+            height: 1px;
+            background-color: rgb(255, 255, 255);
+            margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
-    <div id="clock">
-        <div id="hour"></div>
-        <div id="minute"></div>
-        <div id="second"></div>
-        <p id="text">00:00:00</p>
-        <div id="line"></div>
-    </div>
+    <!-- https://github.com/zuramai/starback.js -->
+        <div id="clock">
+            <div id="hour"></div>
+            <div id="minute"></div>
+            <div id="second"></div>
+            <p id="text">00:00:00</p>
+        </div>
     <script>
         const elHour = document.getElementById('hour')
         const elMinute = document.getElementById('minute')
