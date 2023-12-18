@@ -10,7 +10,7 @@
         body {
             margin: 0;
             height: 100vh;
-            background: rgb(9, 16, 40);
+            /* background: rgb(9, 16, 40); */
         }
         #clock {
             width: 400px;
@@ -26,14 +26,14 @@
 
         #clock::before{
             content: "";
-            width: 300px;
-            height: 300px;
+            width: 250px;
+            height: 250px;
             background:hsl(0, 0%, 100%);
             margin: auto;
             border-radius: 50%;
             position: absolute;
-            top: 13%;
-            left: 13%;
+            top: 18%;
+            left: 18%;
             opacity: 100%;
             box-shadow:0 0 30px #c3c3c3;
         }
@@ -93,6 +93,7 @@
             z-index: 3;
             font-size: 80px;
             font-family: roboto;
+            z-index: 5;
         }
 
         #line{
@@ -101,6 +102,32 @@
             background-color: rgb(255, 255, 255);
             margin-bottom: 10px;
         }
+
+        .bb{
+            width:100px ;
+            height: 110px;
+            border-radius: 10px;
+            background: #c3c3c3;
+        }
+
+        .b1{
+            position: absolute;
+            bottom: -32%;
+            left: 10%;
+        }
+
+        .b2{
+            position: absolute;
+            bottom: -32%;
+            left: 37.5%;
+        }
+
+        .b3{
+            position: absolute;
+            bottom: -32%;
+            left: 65%;
+        }
+
     </style>
 </head>
 <body>
@@ -110,6 +137,10 @@
             <div id="minute"></div>
             <div id="second"></div>
             <p id="text">00:00:00</p>
+            <div id="line"></div>
+            <div class="bb b1"></div>
+            <div class="bb b2"></div>
+            <div class="bb b3"></div>
         </div>
     <script>
         const elHour = document.getElementById('hour')
@@ -126,7 +157,7 @@
             elMinute.style.transform = `rotate(${minute*6+90}deg)`
             elSecond.style.transform = `rotate(${second*6+90}deg)`
             //數字
-            elText.innerText = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}:${second.toString().padStart(2, '0')}`
+            elText.innerText = `${hour.toString().padStart(2, '0')} ${minute.toString().padStart(2, '0')} ${second.toString().padStart(2, '0')}`
         }
 
         setInterval(clock, 1000)
