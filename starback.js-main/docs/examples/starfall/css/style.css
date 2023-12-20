@@ -13,6 +13,7 @@
     overflow-x: hidden;
   }
   #canvas {
+      width: 100%;
       height: 100%;
   }
   #hero {
@@ -21,13 +22,11 @@
   }
   #hero .content {
     position: absolute;
-    top: 0;
+    top: 20%;
     left: 0;
     right: 0;
     bottom: 0;
     display: flex;
-    width: 100%;
-    height: 100%;
     justify-content: center;
     align-items: center;
     flex-direction: column;

@@ -1,39 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>clock-22</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/starback@2.1.1/dist/starback.global.js"></script>
-    <style>
-        body {
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>clock-22</title>
+  <link rel="stylesheet" href="./starback.js-main/docs/examples/starfall/css/style.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    body {
             margin: 0;
-            height: 100vh;
+            /* height: 100vh; */
             /* background: rgb(9, 16, 40); */
         }
         #clock {
-            width: 400px;
-            height: 400px;
+            width: 300px;
+            height: 300px;
             background:#ffffff;
             margin: auto;
             border-radius: 50%;
             position: relative;
-            top: calc(50% - 250px);
+            top: calc(50% - 350px);
             opacity: 100%;
             box-shadow:inset 0 0 30px #c3c3c3;
+            box-shadow:0 0 10px #c3c3c3;
         }
 
         #clock::before{
             content: "";
-            width: 250px;
-            height: 250px;
+            width: 150px;
+            height: 150px;
             background:hsl(0, 0%, 100%);
             margin: auto;
             border-radius: 50%;
             position: absolute;
-            top: 18%;
-            left: 18%;
+            top: 24%;
+            left: 24%;
             opacity: 100%;
             box-shadow:0 0 30px #c3c3c3;
         }
@@ -87,7 +93,7 @@
         #text {
             color: rgb(255, 255, 255);
             text-align: center;
-            bottom: -50%;
+            bottom: -40%;
             position: absolute;
             width: 100%;
             z-index: 3;
@@ -104,61 +110,91 @@
         }
 
         .bb{
-            width:100px ;
+            width:90px ;
             height: 110px;
             border-radius: 10px;
-            background: #c3c3c3;
+            background: #08525d;
+            box-shadow: 0 0 10px rgba(245, 245, 245, 0.685);
         }
 
         .b1{
             position: absolute;
-            bottom: -32%;
-            left: 10%;
+            bottom: -42%;
+            left: 1%;
         }
 
         .b2{
             position: absolute;
-            bottom: -32%;
-            left: 37.5%;
+            bottom: -42%;
+            left: 34.5%;
         }
 
         .b3{
             position: absolute;
-            bottom: -32%;
-            left: 65%;
+            bottom: -42%;
+            left: 68%;
         }
-
-    </style>
+  </style>
 </head>
-<body>
-    <!-- https://github.com/zuramai/starback.js -->
-    <canvas id="canvas">
-        <div id="clock">
-            <div id="hour"></div>
-            <div id="minute"></div>
-            <div id="second"></div>
-            <p id="text">00:00:00</p>
-            <div id="line"></div>
-            <div class="bb b1"></div>
-            <div class="bb b2"></div>
-            <div class="bb b3"></div>
-        </div>
-    </canvas>
 
-    
-    <script src="PATH_TO_DIST_FOLDER/starback.js"></script> 
-    <script>
-        const canvas = document.getElementById('canvas')
-        const starback = new Starback(canvas, {
-            type: 'dot',
-            quantity: 100,
-            direction: 225,
-            backgroundColor: ['#0e1118', '#232b3e'],
-            randomOpacity: true,
-        })
-    </script>
-    <script>
-        const elHour = document.getElementById('hour')
+<body>
+  <div id="app">
+    <section id="hero">
+      <canvas id="canvas"></canvas>
+      <!-- 內容 -->
+      <div class="content">
+        <div id="clock">
+          <div id="hour"></div>
+          <div id="minute"></div>
+          <div id="second"></div>
+          <p id="text">00 : 00 : 00</p>
+          <div class="bb b1"></div>
+          <div class="bb b2"></div>
+          <div class="bb b3"></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script src="./starback.js-main/docs/starback.global.js"></script>
+
+  <script>
+    const starback = new Starback("#canvas", {
+      width: document.body.clientWidth,
+      height: document.body.clientHeight,
+      type: 'line',
+      speed: 5,
+      frequency: 5,
+      slope: { x: -1, y: 10 },
+      directionX: 1,
+      speed: 3,
+      spread: -10,
+      randomOpacity: true,
+      backgroundColor: ['#0F2027', '#203A43', '#2C5364'],
+      quantity: 30,
+    });
+
+    let mountain = new Image();
+    mountain.src = './starback.js-main/docs/examples/starfall/images/mountain2.png';
+
+    mountain.onload = () => {
+      starback.addToFront((ctx) => {
+        ctx.drawImage(
+          mountain,
+          0,
+          0,
+          mountain.width,
+          mountain.height,
+          0,
+          canvas.height - mountain.height,
+          canvas.width,
+          mountain.height
+        );
+      });
+    }
+
+    // 時鐘
+    const elHour = document.getElementById('hour')
         const elMinute = document.getElementById('minute')
         const elSecond = document.getElementById('second')
         const elText = document.getElementById('text')
@@ -172,11 +208,12 @@
             elMinute.style.transform = `rotate(${minute*6+90}deg)`
             elSecond.style.transform = `rotate(${second*6+90}deg)`
             //數字
-            elText.innerText = `${hour.toString().padStart(2, '0')} ${minute.toString().padStart(2, '0')} ${second.toString().padStart(2, '0')}`
+            elText.innerText = `${hour.toString().padStart(2, '0')} ${minute.toString().padStart(2, '0')}  ${second.toString().padStart(2, '0')}`
         }
 
         setInterval(clock, 1000)
         clock()
-    </script>
+  </script>
 </body>
+
 </html>
